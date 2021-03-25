@@ -37,14 +37,15 @@ func getUserResponse(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
+	params := mux.Vars(r)
+
 	data, err := ioutil.ReadFile("./" + pathToData)
 	checkErr(err)
 
 	err = json.Unmarshal(data, &userList)
 	checkErr(err)
 
-	var user *User
-	user = getUser("JohnDoe")
+	var user *User = getUser(params["username"])
 
 	fmt.Println("Returned user " + user.Username)
 
@@ -63,7 +64,7 @@ func getUser(username string) *User {
 	return nil
 }
 
-// Logs errors
+// Check for and logs errors
 func checkErr(e error) {
 	if e != nil {
 		fmt.Println(e)
