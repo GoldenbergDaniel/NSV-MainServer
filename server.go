@@ -54,7 +54,6 @@ func getUserResponse(w http.ResponseWriter, r *http.Request) {
 
 // Returns user of given username
 func getUser(username string) *User {
-
 	for i := 0; i < len(userList); i++ {
 		if userList[i].Username == username {
 			return &userList[i]
